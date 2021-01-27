@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Data.Repositories.Interfaces;
 using Hahn.ApplicatonProcess.December2020.Domain;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
 {
@@ -13,11 +14,13 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
     {
         private readonly IServiceScope _scope;
         private readonly ApplicantDatabaseContext _databaseContext;
+        private readonly ILogger<ApplicantRepository> _logger;
 
-        public ApplicantRepository(IServiceProvider services)
+        public ApplicantRepository(IServiceProvider services, ILogger<ApplicantRepository> logger)
         {
             _scope = services.CreateScope();
             _databaseContext = _scope.ServiceProvider.GetRequiredService<ApplicantDatabaseContext>();
+            _logger = logger;
         }
         public async Task<bool> Create(Applicant applicant)
         {
@@ -32,7 +35,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
             }
             return success;
         }
@@ -57,7 +60,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
             }
             return success;
         }
@@ -70,7 +73,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
             }
             return applicant;
         }
@@ -83,7 +86,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
             }
             return applicant;
         }
@@ -116,7 +119,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
                 return success;
             }
         }

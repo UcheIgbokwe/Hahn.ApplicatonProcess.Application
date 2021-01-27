@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.Swagger;
+using Serilog;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -87,7 +88,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             }
 
             //app.UseHttpsRedirection();
-
+            app.UseSerilogRequestLogging();
             app.UseRouting();
 
             app.UseAuthorization();
