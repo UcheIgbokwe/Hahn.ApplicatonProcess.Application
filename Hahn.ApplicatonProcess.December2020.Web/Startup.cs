@@ -1,17 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
-using Hahn.ApplicatonProcess.December2020.Domain;
+using Hahn.ApplicatonProcess.December2020.Data;
+using Hahn.ApplicatonProcess.December2020.Data.Repositories;
+using Hahn.ApplicatonProcess.December2020.Data.Repositories.Interfaces;
+using Hahn.ApplicatonProcess.December2020.Data.Services;
+using Hahn.ApplicatonProcess.December2020.Data.Services.Interfaces;
+using Hahn.ApplicatonProcess.December2020.Domain.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
@@ -23,7 +22,7 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public static IConfiguration Configuration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -31,6 +30,28 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             services.AddControllers()
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicantModelValidator>());
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.December2020.Web", Version = "v1" }));
+
+            ConfigureTransientServices(services);
+            ConfigureRepositories(services);
+            ConfigureEntityFramework(services);
+        }
+
+        private static void ConfigureTransientServices(IServiceCollection services)
+        {
+            services.AddTransient<IApplicantService, ApplicantService>();
+        }
+
+        private static void ConfigureRepositories(IServiceCollection services)
+        {
+            services.AddSingleton<IApplicantRepository, ApplicantRepository>();
+        }
+
+        private static void ConfigureEntityFramework(IServiceCollection services)
+        {
+            var databaseName = Configuration["EntityFramework:DatabaseName"];
+
+            services.AddDbContext<ApplicantDatabaseContext>(options =>
+                options.UseInMemoryDatabase(databaseName));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

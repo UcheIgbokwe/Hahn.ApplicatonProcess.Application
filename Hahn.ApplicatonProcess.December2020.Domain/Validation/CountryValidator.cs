@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation.Validators;
 
-namespace Hahn.ApplicatonProcess.December2020.Domain
+namespace Hahn.ApplicatonProcess.December2020.Domain.Validation
 {
     public class CountryValidator : AsyncValidatorBase
     {
