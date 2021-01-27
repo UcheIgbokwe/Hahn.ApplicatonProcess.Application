@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Domain;
 
@@ -9,5 +10,6 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Services.Interfaces
         Applicant Get(int applicantId);
         Task<Applicant> Update(Applicant applicant);
         Task<bool> Delete(int applicantId);
+        List<Applicant> GetAll();
     }
 }

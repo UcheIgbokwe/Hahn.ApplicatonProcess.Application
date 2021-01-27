@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using FluentValidation.AspNetCore;
 using Hahn.ApplicatonProcess.December2020.Data;
 using Hahn.ApplicatonProcess.December2020.Data.Repositories;
@@ -12,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -29,7 +34,24 @@ namespace Hahn.ApplicatonProcess.December2020.Web
         {
             services.AddControllers()
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ApplicantModelValidator>());
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.ApplicatonProcess.December2020.Web", Version = "v1" }));
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Hahn.ApplicatonProcess.December2020.Web API",
+                    Description = "An API to manage Applicants record",
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+                c.ExampleFilters();
+            });
+
+            services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
+            services.Configure<SwaggerOptions>(c => c.SerializeAsV2 = true);
 
             ConfigureTransientServices(services);
             ConfigureRepositories(services);

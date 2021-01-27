@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
+#pragma warning disable CS1591
     public static class Program
     {
         public static void Main(string[] args)
@@ -20,4 +21,5 @@ namespace Hahn.ApplicatonProcess.December2020.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
     }
+#pragma warning disable CS1591
 }

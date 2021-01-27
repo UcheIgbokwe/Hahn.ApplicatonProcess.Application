@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hahn.ApplicatonProcess.December2020.Data.Repositories.Interfaces;
@@ -66,6 +67,19 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repositories
             Applicant applicant = new();
             try{
                 applicant = _databaseContext.Applicants.Where(x => x.ID == applicantId).FirstOrDefault();
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return applicant;
+        }
+
+        public List<Applicant> GetAll()
+        {
+            List<Applicant> applicant = new();
+            try{
+                applicant = _databaseContext.Applicants.ToList();
             }
             catch (System.Exception ex)
             {
