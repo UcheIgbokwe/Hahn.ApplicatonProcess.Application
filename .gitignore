@@ -9,6 +9,7 @@ publish
 /node_modules
 /.pnp
 .pnp.js
+*.txt
 
 # testing
 /coverage

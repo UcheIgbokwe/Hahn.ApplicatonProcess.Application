@@ -3,8 +3,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Events;
 
 namespace Hahn.ApplicatonProcess.December2020.Web
 {
@@ -14,17 +14,24 @@ namespace Hahn.ApplicatonProcess.December2020.Web
         public static int Main(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.Development.json")
                 .Build();
+            var logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
 
             Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()
             .WriteTo.Console()
-            .ReadFrom.Configuration(configuration)
             .CreateLogger();
+
+            var loggerFactory = LoggerFactory.Create(builder => {
+                    builder.AddFilter("Microsoft", LogLevel.Information)
+                        .AddFilter("System", LogLevel.Error)
+                        .AddConsole();
+                }
+            );
 
             try
             {
@@ -42,7 +49,6 @@ namespace Hahn.ApplicatonProcess.December2020.Web
                 Log.CloseAndFlush();
             }
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()
