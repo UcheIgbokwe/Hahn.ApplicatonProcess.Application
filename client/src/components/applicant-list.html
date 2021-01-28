@@ -1,0 +1,11 @@
+<template>
+  <div class="applicant-list">
+    <div class="list-group">
+      <a repeat.for="applicant of applicants" class="list-group-item list-group-item-action ${applicant.id === $parent.selectedId ? 'active' : ''}" route-href="route: applicants; params.bind: {id:applicant.id}" click.delegate="$parent.select(applicant)">
+        <strong>${applicant.name} ${applicant.familyName}</strong><br>
+        <small>${applicant.eMailAdress}</small>
+      </a>
+    </div>
+  </div>
+</template>
+
