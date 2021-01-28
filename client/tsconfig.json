@@ -8,6 +8,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "target": "es5",
     "lib": [
@@ -20,8 +21,7 @@
     "allowJs": true
   },
   "include": [
-    "src",
-    "test"
+    "src"
   ],
   "atom": {
     "rewriteTsconfig": false

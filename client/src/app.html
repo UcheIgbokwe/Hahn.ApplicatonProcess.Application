@@ -1,3 +1,19 @@
 <template>
-  <h1>${message}</h1>
+  <require from="./styles.css"></require>
+  <require from="./components/contact-list"></require>
+
+  <nav class="navbar navbar-light bg-light border-bottom fixed-top" role="navigation">
+    <a class="navbar-brand" href="#">
+      <i class="fa fa-user"></i>
+      <span>Hahn.ApplicatonProcess.Application</span>
+    </a>
+  </nav>
+
+  <div class="container-md">
+    <div class="row">
+      <contact-list class="col-sm-5 col-md-4"></contact-list>
+      <router-view class="col-sm-7 col-md-8"></router-view>
+    </div>
+  </div>
 </template>
+
