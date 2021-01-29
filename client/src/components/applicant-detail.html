@@ -52,7 +52,10 @@
           </div>
         </form>
         <div>
-          <button class="btn btn-success float-right" click.delegate="save()" disabled.bind="!canSave">Save</button>
+          <button class="btn btn-danger float-right" click.delegate="delete(applicant)" disabled.bind="!canSave">Delete</button>
+        </div>
+        <div>
+          <button class="btn btn-primary float-right" click.delegate="update(applicant)" disabled.bind="!canSave">Update</button>
         </div>
       </div>
     </div>

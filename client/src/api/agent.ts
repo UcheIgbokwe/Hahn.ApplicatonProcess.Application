@@ -22,7 +22,7 @@ export class ApplicantAPI{
       })
     .catch(error => {
       this.isRequesting = false;
-      console.log('Error retrieving applicants.');
+      console.log(error);
       return [];
     });
 
@@ -38,55 +38,63 @@ export class ApplicantAPI{
       })
     .catch(error => {
       this.isRequesting = false;
-      console.log('Error retrieving applicant.');
+      console.log(error);
       return [];
     });
   }
 
-  addBook(book){
-      return this.http.fetch('books', {
-          method: 'post',
-          body: json(book)
-          })
-          .then(response => response.json())
-          .then(createdBook => {
-              return createdBook;
-          })
-              .catch(error => {
-                  console.log('Error adding book.');
-          });
+  create(applicant){
+    this.isRequesting = true;
+    return this.http.fetch('Applicant/create', {
+      method: 'post',
+      body: json(applicant)
+      })
+      .then(response => response.json())
+      .then(createdApplicant => {
+        this.isRequesting = false;
+        return createdApplicant;
+      })
+      .catch(error => {
+        this.isRequesting = false;
+        console.log(error);
+    });
 
   }
 
-  deleteBook(book){
-      return this.http.fetch(`book/${book._id}`, {
-              method: 'delete'
-              })
-              .then(response => response.json())
-              .then(responseMessage => {
-                  return responseMessage;
-              })
-                .catch(error => {
-                      console.log('Error deleting book.');
-                });
-
-
+  update(applicant){
+    this.isRequesting = true;
+    return this.http.fetch(`Applicant/update`, {
+      method: 'put',
+      body: json(applicant)
+    })
+    .then(response => response.json())
+    .then(savedApplicant => {
+      this.isRequesting = false;
+      return savedApplicant;
+      })
+      .catch(error => {
+        this.isRequesting = false;
+        console.log(error);
+    });
   }
 
-  saveBook(book){
-      return this.http.fetch(`book/${book._id}`, {
-                  method: 'put',
-                  body: json(book)
-                })
-                .then(response => response.json())
-                .then(savedBook => {
-                  return savedBook;
-                  })
-                  .catch(error => {
-                      console.log('Error saving book.');
-                });
-
-
+  delete(id){
+    this.isRequesting = true;
+    return this.http.fetch(`Applicant/delete/${id}`, {
+      method: 'delete'
+    })
+    .then(response => response.text())
+    .then(responseMessage => {
+      this.isRequesting = false;
+      console.log(responseMessage)
+      return responseMessage;
+    })
+    .catch(error => {
+      this.isRequesting = false;
+      console.log(error);
+    });
   }
+
+  
 }
 
