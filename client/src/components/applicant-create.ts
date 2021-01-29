@@ -28,27 +28,30 @@ export class ApplicantDetail {
       this.applicant = <Applicant>applicant;
       this.originalApplicant = JSON.parse(JSON.stringify(this.applicant));
       this.ea.publish(new ApplicantCreated(this.applicant));
-      this.refresh();
+      window.location.reload();
     });
   }
 
   canSave(params) {
     if (params === undefined) {
-      console.log('params');
     }
     if (params !== undefined) {
-      console.log('defined');
+      //return params
+      if (params.name && params.familyName && params.address && params.age && params.countryOfOrigin && params.eMailAdress && !this.api.isRequesting) {
+        console.log("It entered")
+        return true;
+      }
+      
+
     }
-    console.log(params);
-    return params;
-    //return this.applicant.name && this.applicant.familyName && this.applicant.address && this.applicant.age && this.applicant.countryOfOrigin && this.applicant.eMailAdress && !this.api.isRequesting;
   }
 
-  refresh() {
-    this.applicant = null;
-    return this.applicant;
+  canReset(params) {
+    if (params === undefined) {
+      return !this.api.isRequesting;
+    }
   }
-  
+
 }
   
 
