@@ -1,5 +1,7 @@
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import { ApplicantAPI } from './../api/agent';
+import {ApplicantUpdated,ApplicantViewed} from './messages';
 import {areEqual} from '../utility';
 
 interface Applicant {
@@ -12,13 +14,13 @@ interface Applicant {
   hired: boolean;
 }
 
-@inject(ApplicantAPI)
+@inject(ApplicantAPI, EventAggregator)
 export class ApplicantDetail {
   routeConfig;
   applicant: Applicant;
   originalApplicant: Applicant;
 
-  constructor(private api: ApplicantAPI) { }
+  constructor(private api: ApplicantAPI, private ea: EventAggregator) { }
 
   activate(params, routeConfig) {
     this.routeConfig = routeConfig;
@@ -27,12 +29,18 @@ export class ApplicantDetail {
       this.applicant = <Applicant>applicant;
       this.routeConfig.navModel.setTitle(this.applicant.name);
       this.originalApplicant = JSON.parse(JSON.stringify(this.applicant));
+      this.ea.publish(new ApplicantViewed(this.applicant));
     });
   }
 
   canDeactivate() {
     if (!areEqual(this.originalApplicant, this.applicant)) {
-      return confirm('You have unsaved changes. Are you sure you wish to leave?');
+      let result = confirm('You have unsaved changes. Are you sure you wish to leave?');
+
+      if (!result) {
+        this.ea.publish(new ApplicantViewed(this.applicant));
+      }
+      return result;
     }
 
     return true;
