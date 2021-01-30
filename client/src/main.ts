@@ -10,11 +10,10 @@ import 'font-awesome/css/font-awesome.css';
 export function configure(aurelia: Aurelia): void {
   aurelia.use
     .standardConfiguration()
-    .feature(PLATFORM.moduleName('resources/index'));
+    .feature(PLATFORM.moduleName('resources/index'))
+    .plugin(PLATFORM.moduleName('aurelia-validation'));
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
-
-  aurelia.use.plugin(PLATFORM.moduleName('aurelia-validation'))
 
   if (environment.testing) {
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));

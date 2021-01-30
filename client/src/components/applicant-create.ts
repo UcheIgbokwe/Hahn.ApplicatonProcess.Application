@@ -1,10 +1,11 @@
-import {inject} from 'aurelia-framework';
+import {autoinject} from 'aurelia-dependency-injection';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {validationMessages, ValidationRules} from 'aurelia-validation';
+import {ValidationControllerFactory, ValidationController, ValidateResult, ValidationRules } from "aurelia-validation";
 import Swal from 'sweetalert2';
-import * as toastr from 'toastr';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantCreated} from './messages';
+import { BootstrapFormRenderer } from './../bootstrap-form-renderer';
+
 
 interface Applicant {
   id: number;
@@ -17,26 +18,47 @@ interface Applicant {
   hired: boolean;
 }
 
-@inject(ApplicantAPI, EventAggregator, ValidationRules)
+@autoinject
+//@inject(ApplicantAPI, EventAggregator, ValidationRules, ValidationController, ValidationControllerFactory)
 export class ApplicantDetail {
   routeConfig;
   applicant: Applicant;
   originalApplicant: Applicant;
+  controller: ValidationController;
+  errors: ValidateResult[];
 
-  constructor(private api: ApplicantAPI, private ea: EventAggregator) { }
-
+  constructor(private api: ApplicantAPI, private ea: EventAggregator, private controllerFactory: ValidationControllerFactory) { 
+    this.controller = this.controllerFactory.createForCurrentScope();
+    
+    this.controller.addRenderer(new BootstrapFormRenderer());
+    this.controller.addObject(this);
+    //this.controller.validateTrigger = validateTrigger.changeOrBlur;
+    this.controller.reset({ object: this.applicant, propertyName: 'hired' });
   
 
-  create(params) {
-    ValidationRules
-    .ensure('name').displayName('Uche')
-    return this.api.create(params).then(applicant => {
-      console.log(applicant);
-      this.applicant = <Applicant>applicant;
-      this.originalApplicant = JSON.parse(JSON.stringify(this.applicant));
-      this.ea.publish(new ApplicantCreated(this.applicant));
-      window.location.reload();
+   
+
+  }
+
+
+  create() {
+    this.controller.validate()
+    .then((validate) => {
+      this.errors = validate.results;
+      if(this.errors.length <= 0) {
+        return this.api.create(this.applicant).then(applicant => {
+          console.log(applicant);
+          this.applicant = <Applicant>applicant;
+          this.originalApplicant = JSON.parse(JSON.stringify(this.applicant));
+          this.ea.publish(new ApplicantCreated(this.applicant));
+          window.location.reload();
+        });
+      } else {
+        console.log('E no enter')
+      }
     });
+      
+    
   }
 
   reset(){
@@ -75,7 +97,25 @@ export class ApplicantDetail {
     }
   }
 
+  
+
 }
+
+ValidationRules
+  .ensure('name').required()
+  .withMessage('First Name must be provided.')
+  .ensure('familyName').required()
+  .withMessage('Last Name must be provided.')
+  .ensure('eMailAdress').email()
+  .withMessage('Valid Email must be provided.')
+  .ensure('address').required()
+  .withMessage('Address must be provided.')
+  .ensure('countryOfOrigin').required()
+  .withMessage('Country must be provided.')
+  .ensure('age').required()
+  .withMessage('Age must be provided.')
+  .on(ApplicantDetail);
+  
   
 
   

@@ -5,58 +5,102 @@
     </div>
     <div class="card-body">
       <form role="form">
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">First Name</label>
+        <div class="form-group row" validation-errors.bind="nameErrors"
+            class.bind="nameErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="firstName">First Name</label>
           <div class="col-md-9">
-            <input type="text" placeholder="first name" class="form-control" value.bind="applicant.name">
+            <input type="text" class="form-control" id="firstName"
+                    placeholder="First Name"
+                    value.bind="name & validate">
+            <span class="help-block" repeat.for="errorInfo of nameErrors">
+              ${errorInfo.error.message}
+            </span> 
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Last Name</label>
+        <div class="form-group row" validation-errors.bind="familyNameErrors"
+            class.bind="familyNameErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="lastName">Last Name</label>
           <div class="col-md-9">
-            <input type="text" placeholder="last name" class="form-control" value.bind="applicant.familyName">
+            <input type="text" class="form-control" id="lastName"
+                    placeholder="Last Name"
+                    value.bind="familyName & validate">
+            <span class="help-block" repeat.for="errorInfo of familyNameErrors">
+              ${errorInfo.error.message}
+            </span> 
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Email</label>
+        <div class="form-group row" validation-errors.bind="eMailAdressErrors"
+            class.bind="eMailAdressErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="eMailAdress">Email</label>
           <div class="col-md-9">
-            <input type="text" placeholder="email" class="form-control" value.bind="applicant.eMailAdress">
+            <input type="email" class="form-control" id="eMailAdress"
+                    placeholder="Email"
+                    value.bind="eMailAdress & validate">
+            <span class="help-block" repeat.for="errorInfo of eMailAdressErrors">
+              ${errorInfo.error.message}
+            </span> 
           </div>
         </div>
 
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Address</label>
+        
+
+        <div class="form-group row" validation-errors.bind="addressErrors"
+            class.bind="addressErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="address">Address</label>
           <div class="col-md-9">
-            <input type="text" placeholder="Address" class="form-control" value.bind="applicant.address">
+            <input type="text" class="form-control" id="address"
+                    placeholder="Address"
+                    value.bind="address & validate">
+            <span class="help-block" repeat.for="errorInfo of addressErrors">
+              ${errorInfo.error.message}
+            </span> 
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Country</label>
+
+        <div class="form-group row" validation-errors.bind="countryOfOriginErrors"
+            class.bind="countryOfOriginErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="countryOfOrigin">Country</label>
           <div class="col-md-9">
-            <input type="text" placeholder="Country" class="form-control" value.bind="applicant.countryOfOrigin">
+            <input type="text" class="form-control" id="countryOfOrigin"
+                    placeholder="Country"
+                    value.bind="countryOfOrigin & validate">
+            <span class="help-block" repeat.for="errorInfo of countryOfOriginErrors">
+              ${errorInfo.error.message}
+            </span> 
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label">Age</label>
+
+        <div class="form-group row" validation-errors.bind="ageErrors"
+            class.bind="ageErrors.length ? 'has-error' : ''">
+          <label class="col-md-3 col-form-label" for="age">Age</label>
           <div class="col-md-9">
-            <input type="number" placeholder="Age" class="form-control" value.bind="applicant.age">
+            <input type="number" class="form-control" id="age"
+                    placeholder="Age"
+                    value.bind="age & validate">
+            <span class="help-block" repeat.for="errorInfo of ageErrors">
+              ${errorInfo.error.message}
+            </span> 
           </div>
         </div>
+
+
         <div class="form-group row">
           <label class="col-md-3 col-form-label">Hired</label>
           <div class="col-md-4">
-            <input type="checkbox" placeholder="Hired?" class="form-control" value.bind="applicant.hired">
+            <input type="checkbox" placeholder="Hired?" class="form-control" value.bind="hired">
           </div>
         </div>
       </form>
       <div>
-        <button class="btn btn-success float-right" click.delegate="create(applicant)" disabled.bind="canSave(applicant)">Save</button>
+        <button class="btn btn-success float-right" click.delegate="create()" disabled.bind="canSave(applicant)">Save</button>
       </div>
       <div>
         <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="canReset(applicant)">Reset</button>
       </div>
+
+      
     </div>
   </div>
 </template>
