@@ -1,5 +1,6 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import Swal from 'sweetalert2';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantCreated} from './messages';
 
@@ -30,6 +31,22 @@ export class ApplicantDetail {
       this.ea.publish(new ApplicantCreated(this.applicant));
       window.location.reload();
     });
+  }
+
+  reset(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, reset it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload();
+      }
+    })
   }
 
   canSave(params) {

@@ -55,7 +55,7 @@
         <button class="btn btn-success float-right" click.delegate="create(applicant)" disabled.bind="canSave(applicant)">Save</button>
       </div>
       <div>
-        <button class="btn btn-primary float-right" click.delegate="refresh()" disabled.bind="!canReset(applicant)">Reset</button>
+        <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="canReset(applicant)">Reset</button>
       </div>
     </div>
   </div>
