@@ -4,8 +4,12 @@
       <a repeat.for="applicant of applicants" class="list-group-item list-group-item-action ${applicant.id === $parent.selectedId ? 'active' : ''}" route-href="route: applicants; params.bind: {id:applicant.id}" click.delegate="$parent.select(applicant)">
         <strong>${applicant.name} ${applicant.familyName}</strong><br>
         <small>${applicant.eMailAdress}</small>
+        <div>
+          <footer class="blockquote-footer">Click here to view profile</footer>
+        </div>
       </a>
     </div>
   </div>
+  
 </template>
 

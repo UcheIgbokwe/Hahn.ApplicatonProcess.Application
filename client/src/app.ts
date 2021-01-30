@@ -1,4 +1,4 @@
-import {Router, RouterConfiguration, activationStrategy} from 'aurelia-router';
+import {Router, RouterConfiguration} from 'aurelia-router';
 import {inject, PLATFORM} from 'aurelia-framework';
 import { ApplicantAPI } from './../src/api/agent';
 
@@ -13,8 +13,7 @@ export class App {
     config.options.pushState = true;
     config.options.root = '/';
     config.map([
-      { route: '',                moduleId: PLATFORM.moduleName('./components/applicant-create'), title:'Applicants', activationStrategy: activationStrategy.invokeLifecycle },
-      { route: 'contacts/:id',    moduleId: PLATFORM.moduleName('./components/contact-detail'), name:'contacts' },
+      { route: '',                moduleId: PLATFORM.moduleName('./components/applicant-create'), title:'Applicants' },
       { route: 'applicants/:id',  moduleId: PLATFORM.moduleName('./components/applicant-detail'), name:'applicants' }
     ]);
 
