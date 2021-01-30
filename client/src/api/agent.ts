@@ -1,5 +1,6 @@
 import {HttpClient, json} from 'aurelia-fetch-client';
 import {inject} from 'aurelia-framework';
+import * as toastr from 'toastr';
 
 @inject(HttpClient)
 export class ApplicantAPI{
@@ -23,6 +24,7 @@ export class ApplicantAPI{
     .catch(error => {
       this.isRequesting = false;
       console.log(error);
+      toastr.error(error, 'Error!')
       return [];
     });
 
@@ -39,6 +41,7 @@ export class ApplicantAPI{
     .catch(error => {
       this.isRequesting = false;
       console.log(error);
+      toastr.error(error, 'Error!')
       return [];
     });
   }
@@ -57,6 +60,8 @@ export class ApplicantAPI{
       .catch(error => {
         this.isRequesting = false;
         console.log(error);
+        toastr.error(error, 'Error!')
+        return [];
     });
 
   }
@@ -75,6 +80,7 @@ export class ApplicantAPI{
       .catch(error => {
         this.isRequesting = false;
         console.log(error);
+        toastr.error(error, 'Error!')
     });
   }
 
@@ -92,6 +98,7 @@ export class ApplicantAPI{
     .catch(error => {
       this.isRequesting = false;
       console.log(error);
+      toastr.error(error, 'Error!')
     });
   }
 

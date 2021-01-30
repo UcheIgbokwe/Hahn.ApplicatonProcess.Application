@@ -1,6 +1,8 @@
 import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import {validationMessages, ValidationRules} from 'aurelia-validation';
 import Swal from 'sweetalert2';
+import * as toastr from 'toastr';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantCreated} from './messages';
 
@@ -15,7 +17,7 @@ interface Applicant {
   hired: boolean;
 }
 
-@inject(ApplicantAPI, EventAggregator)
+@inject(ApplicantAPI, EventAggregator, ValidationRules)
 export class ApplicantDetail {
   routeConfig;
   applicant: Applicant;
@@ -23,9 +25,13 @@ export class ApplicantDetail {
 
   constructor(private api: ApplicantAPI, private ea: EventAggregator) { }
 
-  create(params) {
+  
 
+  create(params) {
+    ValidationRules
+    .ensure('name').displayName('Uche')
     return this.api.create(params).then(applicant => {
+      console.log(applicant);
       this.applicant = <Applicant>applicant;
       this.originalApplicant = JSON.parse(JSON.stringify(this.applicant));
       this.ea.publish(new ApplicantCreated(this.applicant));

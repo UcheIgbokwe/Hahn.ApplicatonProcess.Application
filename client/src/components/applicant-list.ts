@@ -1,4 +1,5 @@
 import {EventAggregator} from 'aurelia-event-aggregator';
+import * as toastr from 'toastr';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantUpdated,ApplicantViewed} from './messages';
 import {inject} from 'aurelia-framework';
@@ -18,7 +19,11 @@ export class ApplicantList {
   }
 
   created() {
-    this.api.getApplicants().then(applicants => this.applicants = applicants);
+    this.api.getApplicants().then(applicants => {
+      this.applicants = applicants;
+      //console.log(applicants);
+      //toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')
+    });
   }
 
   select(applicant) {

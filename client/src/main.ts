@@ -14,6 +14,8 @@ export function configure(aurelia: Aurelia): void {
 
   aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
 
+  aurelia.use.plugin(PLATFORM.moduleName('aurelia-validation'))
+
   if (environment.testing) {
     aurelia.use.plugin(PLATFORM.moduleName('aurelia-testing'));
   }
