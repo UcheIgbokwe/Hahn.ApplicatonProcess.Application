@@ -220,6 +220,7 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.ts$/, loader: "ts-loader" },
+      { test: /\.json$/i, use: 'json-loader', type: 'javascript/auto' },
       // embed small images and fonts as Data Urls and larger ones as files:
       { test: /\.(png|gif|jpg|cur)$/i, loader: 'url-loader', options: { limit: 8192 } },
       { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/i, loader: 'url-loader', options: { limit: 10000, mimetype: 'application/font-woff2' } },
@@ -240,7 +241,11 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
     ...when(!tests, new DuplicatePackageCheckerPlugin()),
     new AureliaPlugin(),
     new ModuleDependenciesPlugin({
-      'aurelia-testing': ['./compile-spy', './view-spy']
+      'aurelia-testing': ['./compile-spy', './view-spy'],
+      "aurelia-i18n": [ 
+        { name: 'locales/en-EN/translation.json', chunk: 'lang-en' },
+        { name: 'locales/de-DE/translation.json', chunk: 'lang-de' }
+      ]
     }),
     new HtmlWebpackPlugin({
       template: 'index.ejs',
@@ -254,6 +259,11 @@ module.exports = ({ production } = {}, {extractCss, analyze, tests, hmr, port, h
       filename: production ? '[name].[contenthash].bundle.css' : '[name].[hash].bundle.css',
       chunkFilename: production ? '[name].[contenthash].chunk.css' : '[name].[hash].chunk.css'
     })),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/locales/', to: 'locales/' }
+      ]
+    }),
     ...when(!tests, new CopyWebpackPlugin({
       patterns: [
         { from: 'static', to: outDir, globOptions: { ignore: ['.*'] } }

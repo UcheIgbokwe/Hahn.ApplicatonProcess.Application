@@ -1,4 +1,11 @@
 <template>
+  <p>Language:</p>
+  <ul style="list-style-type: none;">
+      <li repeat.for="locale of locales">
+          <input type="radio" id="locale${$index}" name="locale" value.bind="locale.key" autocomplete="off" checked.bind="currentLocale">
+          <label for="locale${$index}" textcontent.bind="locale.label"></label>
+      </li>
+  </ul>
   <div class="card">
     <div class="card-header text-white bg-primary">
       Create
@@ -7,10 +14,9 @@
       <form role="form">
         <div class="form-group row" validation-errors.bind="nameErrors"
             class.bind="nameErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="firstName">First Name</label>
+          <label class="col-md-3 col-form-label" for="firstName" t="[prepend]firstName"></label>
           <div class="col-md-9">
             <input type="text" class="form-control" id="firstName"
-                    placeholder="First Name"
                     value.bind="name & validate">
             <span class="help-block" repeat.for="errorInfo of nameErrors">
               ${errorInfo.error.message}
@@ -20,10 +26,9 @@
 
         <div class="form-group row" validation-errors.bind="familyNameErrors"
             class.bind="familyNameErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="lastName">Last Name</label>
+          <label class="col-md-3 col-form-label" for="lastName" t="[prepend]lastName"></label>
           <div class="col-md-9">
             <input type="text" class="form-control" id="lastName"
-                    placeholder="Last Name"
                     value.bind="familyName & validate">
             <span class="help-block" repeat.for="errorInfo of familyNameErrors">
               ${errorInfo.error.message}
@@ -36,7 +41,6 @@
           <label class="col-md-3 col-form-label" for="eMailAdress">Email</label>
           <div class="col-md-9">
             <input type="email" class="form-control" id="eMailAdress"
-                    placeholder="Email"
                     value.bind="eMailAdress & validate">
             <span class="help-block" repeat.for="errorInfo of eMailAdressErrors">
               ${errorInfo.error.message}
@@ -51,7 +55,6 @@
           <label class="col-md-3 col-form-label" for="address">Address</label>
           <div class="col-md-9">
             <input type="text" class="form-control" id="address"
-                    placeholder="Address"
                     value.bind="address & validate">
             <span class="help-block" repeat.for="errorInfo of addressErrors">
               ${errorInfo.error.message}
@@ -64,7 +67,6 @@
           <label class="col-md-3 col-form-label" for="countryOfOrigin">Country</label>
           <div class="col-md-9">
             <input type="text" class="form-control" id="countryOfOrigin"
-                    placeholder="Country"
                     value.bind="countryOfOrigin & validate">
             <span class="help-block" repeat.for="errorInfo of countryOfOriginErrors">
               ${errorInfo.error.message}
@@ -77,7 +79,6 @@
           <label class="col-md-3 col-form-label" for="age">Age</label>
           <div class="col-md-9">
             <input type="number" class="form-control" id="age"
-                    placeholder="Age"
                     value.bind="age & validate">
             <span class="help-block" repeat.for="errorInfo of ageErrors">
               ${errorInfo.error.message}
@@ -94,7 +95,7 @@
         </div>
       </form>
       <div>
-        <button class="btn btn-success float-right" click.delegate="create()" disabled.bind="canSave(applicant)">Save</button>
+        <button class="btn btn-success float-right" click.delegate="create()" >Save</button>
       </div>
       <div>
         <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="canReset(applicant)">Reset</button>

@@ -1,5 +1,6 @@
 import {Router, RouterConfiguration} from 'aurelia-router';
 import {inject, PLATFORM} from 'aurelia-framework';
+
 import { ApplicantAPI } from './../src/api/agent';
 
 @inject(ApplicantAPI)

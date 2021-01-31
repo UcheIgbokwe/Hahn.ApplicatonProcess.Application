@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "target": "es5",
     "lib": [
@@ -23,6 +24,7 @@
   "include": [
     "src"
   ],
+  "types": [ "i18next", "i18next-xhr-backend" ],
   "atom": {
     "rewriteTsconfig": false
   }
