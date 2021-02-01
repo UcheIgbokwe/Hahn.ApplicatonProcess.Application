@@ -3,6 +3,17 @@ A Web Application built using Aurelia Framework, ASP.NET Core, EntityFrameworkCo
 
 Follow the steps below to run the application:
 
+# Prerequisities:
+In order to use this application, you will need Aurelia CLI, .NET 5 and NodeJs.
+
+If you don't have any, kindly install the following
+
+1. Install NodeJS version 10 or above.
+
+2. Install .NET 5 
+
+3. Install a standard Git client eg GitBash and run "npm install -g aurelia-cli" on the Git client.
+
 # Step 1:
 Open the application in Visual Studio Code, any preferred IDE or terminal.
 
