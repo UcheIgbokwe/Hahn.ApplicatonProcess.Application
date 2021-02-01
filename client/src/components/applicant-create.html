@@ -15,7 +15,7 @@
             class.bind="nameErrors.length ? 'has-error' : ''">
           <label class="col-md-3 col-form-label" for="firstName" t="[prepend]firstName"></label>
           <div class="col-md-9">
-            <input type="text" class="form-control" class.bind="nameErrors.length ? 'has-error' : ''" id="firstName"
+            <input type="text" class="form-control" class.bind="nameErrors.length ? 'has-error' : ''" id="firstName" 
                     value.bind="name & validate">
             <span class="help-block" repeat.for="errorInfo of nameErrors">
               ${errorInfo.error.message}
@@ -46,8 +46,6 @@
             </span> 
           </div>
         </div>
-
-        
 
         <div class="form-group row" validation-errors.bind="addressErrors"
             class.bind="addressErrors.length ? 'has-error' : ''">
@@ -92,15 +90,15 @@
             <input type="checkbox" placeholder="Hired?" class="form-control" value.bind="hired">
           </div>
         </div>
+
+        
       </form>
       <div>
-        <button class="btn btn-success float-right" click.delegate="create()" disabled.bind="errors.length" t="[prepend]save"></button>
+        <button class="btn btn-success float-right" click.delegate="create(name,familyName,eMailAdress,address,countryOfOrigin,age,hired)" disabled.bind="errors.length" t="[prepend]save"></button>
       </div>
       <div>
         <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="canReset(applicant)" t="[prepend]reset"></button>
       </div>
-
-      
     </div>
   </div>
 </template>

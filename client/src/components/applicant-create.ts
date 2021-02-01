@@ -20,6 +20,16 @@ interface Applicant {
   hired: boolean;
 }
 
+interface ApplicantDto {
+  name: string;
+  familyName: string;
+  eMailAdress: string;
+  address: string;
+  countryOfOrigin: string;
+  age: number;
+  hired: boolean;
+}
+
 @autoinject
 //@inject(ApplicantAPI, EventAggregator, ValidationRules, ValidationController, ValidationControllerFactory)
 export class ApplicantDetail {
@@ -51,11 +61,6 @@ export class ApplicantDetail {
     this.controller.validate();
   }
 
-  activate() {
-    //this.controller.validate()
-    //this.canSave()
-  }
-
   public currentLocaleChanged(newValue: string, oldValue: string): void {
     if (newValue) {
       if (newValue !== this.i18n.getLocale()) {
@@ -70,12 +75,21 @@ export class ApplicantDetail {
     });
   }
 
-  create() {
+  create(p1,p2,p3,p4,p5,p6,p7) {
+    var newApplicant: ApplicantDto = {
+      name: p1,
+      familyName:p2,
+      eMailAdress:p3,
+      address:p4,
+      countryOfOrigin:p5,
+      age:p6,
+      hired:p7
+    }
     this.controller.validate()
     .then((validate) => {
       if(validate.valid) {
-        return this.api.create(this.applicant).then(applicant => {
-          console.log(applicant);
+        return this.api.create(newApplicant).then(applicant => {
+          //console.log(applicant);
           this.applicant = <Applicant>applicant;
           this.originalApplicant = JSON.parse(JSON.stringify(this.applicant));
           this.ea.publish(new ApplicantCreated(this.applicant));
@@ -127,7 +141,6 @@ export class ApplicantDetail {
     }
   }
 
-  
 
 }
 
