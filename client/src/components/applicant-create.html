@@ -7,16 +7,15 @@
       </li>
   </ul>
   <div class="card">
-    <div class="card-header text-white bg-primary">
-      Create
+    <div class="card-header text-white bg-primary" t="[prepend]create">
     </div>
     <div class="card-body">
-      <form role="form">
+      <form role="form" validation-errors.bind="errors">
         <div class="form-group row" validation-errors.bind="nameErrors"
             class.bind="nameErrors.length ? 'has-error' : ''">
           <label class="col-md-3 col-form-label" for="firstName" t="[prepend]firstName"></label>
           <div class="col-md-9">
-            <input type="text" class="form-control" id="firstName"
+            <input type="text" class="form-control" class.bind="nameErrors.length ? 'has-error' : ''" id="firstName"
                     value.bind="name & validate">
             <span class="help-block" repeat.for="errorInfo of nameErrors">
               ${errorInfo.error.message}
@@ -28,7 +27,7 @@
             class.bind="familyNameErrors.length ? 'has-error' : ''">
           <label class="col-md-3 col-form-label" for="lastName" t="[prepend]lastName"></label>
           <div class="col-md-9">
-            <input type="text" class="form-control" id="lastName"
+            <input type="text" class="form-control" class.bind="familyNameErrors.length ? 'has-error' : ''" id="lastName"
                     value.bind="familyName & validate">
             <span class="help-block" repeat.for="errorInfo of familyNameErrors">
               ${errorInfo.error.message}
@@ -38,9 +37,9 @@
 
         <div class="form-group row" validation-errors.bind="eMailAdressErrors"
             class.bind="eMailAdressErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="eMailAdress">Email</label>
+          <label class="col-md-3 col-form-label" for="eMailAdress" t="[prepend]email"></label>
           <div class="col-md-9">
-            <input type="email" class="form-control" id="eMailAdress"
+            <input type="email" class="form-control" class.bind="eMailAdressErrors.length ? 'has-error' : ''" id="eMailAdress"
                     value.bind="eMailAdress & validate">
             <span class="help-block" repeat.for="errorInfo of eMailAdressErrors">
               ${errorInfo.error.message}
@@ -52,9 +51,9 @@
 
         <div class="form-group row" validation-errors.bind="addressErrors"
             class.bind="addressErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="address">Address</label>
+          <label class="col-md-3 col-form-label" for="address" t="[prepend]address"></label>
           <div class="col-md-9">
-            <input type="text" class="form-control" id="address"
+            <input type="text" class="form-control" class.bind="addressErrors.length ? 'has-error' : ''" id="address"
                     value.bind="address & validate">
             <span class="help-block" repeat.for="errorInfo of addressErrors">
               ${errorInfo.error.message}
@@ -64,9 +63,9 @@
 
         <div class="form-group row" validation-errors.bind="countryOfOriginErrors"
             class.bind="countryOfOriginErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="countryOfOrigin">Country</label>
+          <label class="col-md-3 col-form-label" for="countryOfOrigin" t="[prepend]country"></label>
           <div class="col-md-9">
-            <input type="text" class="form-control" id="countryOfOrigin"
+            <input type="text" class="form-control" class.bind="countryOfOriginErrors.length ? 'has-error' : ''" id="countryOfOrigin"
                     value.bind="countryOfOrigin & validate">
             <span class="help-block" repeat.for="errorInfo of countryOfOriginErrors">
               ${errorInfo.error.message}
@@ -76,9 +75,9 @@
 
         <div class="form-group row" validation-errors.bind="ageErrors"
             class.bind="ageErrors.length ? 'has-error' : ''">
-          <label class="col-md-3 col-form-label" for="age">Age</label>
+          <label class="col-md-3 col-form-label" for="age" t="[prepend]age"></label>
           <div class="col-md-9">
-            <input type="number" class="form-control" id="age"
+            <input type="number" class="form-control" class.bind="ageErrors.length ? 'has-error' : ''" id="age"
                     value.bind="age & validate">
             <span class="help-block" repeat.for="errorInfo of ageErrors">
               ${errorInfo.error.message}
@@ -88,17 +87,17 @@
 
 
         <div class="form-group row">
-          <label class="col-md-3 col-form-label">Hired</label>
+          <label class="col-md-3 col-form-label" t="[prepend]hired"></label>
           <div class="col-md-4">
             <input type="checkbox" placeholder="Hired?" class="form-control" value.bind="hired">
           </div>
         </div>
       </form>
       <div>
-        <button class="btn btn-success float-right" click.delegate="create()" >Save</button>
+        <button class="btn btn-success float-right" click.delegate="create()" disabled.bind="errors.length" t="[prepend]save"></button>
       </div>
       <div>
-        <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="canReset(applicant)">Reset</button>
+        <button class="btn btn-primary float-right" click.delegate="reset()" disabled.bind="canReset(applicant)" t="[prepend]reset"></button>
       </div>
 
       

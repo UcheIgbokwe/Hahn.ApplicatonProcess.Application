@@ -6,7 +6,7 @@ import {ValidationControllerFactory, ValidationController, ValidateResult, Valid
 import Swal from 'sweetalert2';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantCreated} from './messages';
-import { BootstrapFormRenderer } from './../bootstrap-form-renderer';
+import { BootstrapFormRenderer } from '../helper/bootstrap-form-renderer';
 
 
 interface Applicant {
@@ -47,7 +47,12 @@ export class ApplicantDetail {
     this.currentLocale = this.i18n.getLocale();
   }
 
+  public bind() {
+    this.controller.validate();
+  }
+
   activate() {
+    //this.controller.validate()
     //this.canSave()
   }
 
@@ -101,12 +106,16 @@ export class ApplicantDetail {
     })
   }
 
+  
   canSave() {
     this.controller.validate()
     .then((validate) => {
       if(validate.valid) {
+        console.log(validate.valid)
         return true;
       } else {
+        console.log(validate.valid)
+        //this.controller.reset();
         return false;
       }
     });

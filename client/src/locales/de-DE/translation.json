@@ -1,5 +1,14 @@
 {
   "firstName": "Vorname",
-  "lastName": "Nachname"
+  "lastName": "Nachname",
+  "appName": "Hahn Softwareentwicklung",
+  "create": "Erstellen",
+  "address": "Adresse",
+  "country": "Herkunftsland",
+  "email": "E-Mail-Addresse",
+  "age": "Alter",
+  "hired": "Gemietet",
+  "save": "Sparen",
+  "reset": "Zurücksetzen"
 }
 

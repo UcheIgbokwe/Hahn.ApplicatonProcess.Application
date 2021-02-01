@@ -3,7 +3,7 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import Swal from 'sweetalert2';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantUpdated,ApplicantViewed} from './messages';
-import {areEqual} from '../utility';
+import {areEqual} from '../helper/utility';
 
 interface Applicant {
   id: number;

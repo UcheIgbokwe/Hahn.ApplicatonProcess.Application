@@ -1,4 +1,13 @@
 {
   "firstName": "First Name",
-  "lastName": "Last Name"
+  "lastName": "Last Name",
+  "appName": "Hahn Software Development",
+  "create": "Create",
+  "address": "Address",
+  "country": "Country",
+  "email": "Email",
+  "age": "Age",
+  "hired": "Hired",
+  "save": "Save",
+  "reset": "Reset"
 }
