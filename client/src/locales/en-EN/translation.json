@@ -9,5 +9,9 @@
   "age": "Age",
   "hired": "Hired",
   "save": "Save",
-  "reset": "Reset"
+  "reset": "Reset",
+  "profile": "Profile",
+  "update": "Update",
+  "delete": "Delete",
+  "footer": "Click here to view profile"
 }

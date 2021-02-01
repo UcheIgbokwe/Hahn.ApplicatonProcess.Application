@@ -9,6 +9,11 @@
   "age": "Alter",
   "hired": "Gemietet",
   "save": "Sparen",
-  "reset": "Zurücksetzen"
+  "reset": "Zurücksetzen",
+  "profile": "Profil",
+  "update": "Aktualisieren",
+  "delete": "Löschen",
+  "footer": "Klicken Sie hier, um das Profil anzuzeigen"
+
 }
 

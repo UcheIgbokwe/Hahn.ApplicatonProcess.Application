@@ -1,6 +1,8 @@
-import {inject} from 'aurelia-framework';
+import {observable} from 'aurelia-framework';
+import {autoinject} from 'aurelia-dependency-injection';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import Swal from 'sweetalert2';
+import {I18N} from 'aurelia-i18n';
 import { ApplicantAPI } from './../api/agent';
 import {ApplicantUpdated,ApplicantViewed} from './messages';
 import {areEqual} from '../helper/utility';
@@ -16,15 +18,38 @@ interface Applicant {
   hired: boolean;
 }
 
-
-@inject(ApplicantAPI, EventAggregator)
+@autoinject
 export class ApplicantDetail {
   routeConfig;
   applicant: Applicant;
   originalApplicant: Applicant;
   newApplicant: Applicant;
+  public locales: { key: string; label: string }[];
+  @observable
+  public currentLocale: string;
 
-  constructor(private api: ApplicantAPI, private ea: EventAggregator) { }
+  constructor(private api: ApplicantAPI, private ea: EventAggregator, private i18n : I18N) { 
+
+    this.locales = [
+      { key: "en-EN", label: "English" },
+      { key: "de-DE", label: "German" }
+    ];
+    this.currentLocale = this.i18n.getLocale();
+  }
+
+  public currentLocaleChanged(newValue: string, oldValue: string): void {
+    if (newValue) {
+      if (newValue !== this.i18n.getLocale()) {
+        this.setLocale(newValue);
+      }
+    }
+  }
+
+  private setLocale(locale: string): void {
+    this.i18n.setLocale(locale).then(() => {
+      console.log(`Locale has been set to ${locale}`);
+    });
+  }
 
   activate(params, routeConfig) {
     this.routeConfig = routeConfig;

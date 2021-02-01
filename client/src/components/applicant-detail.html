@@ -1,63 +1,68 @@
 <template>
-    <div class="card">
-      <div class="card-header text-white bg-primary">
-        Profile
+  <p>Language:</p>
+  <ul style="list-style-type: none;">
+      <li repeat.for="locale of locales">
+          <input type="radio" id="locale${$index}" name="locale" value.bind="locale.key" autocomplete="off" checked.bind="currentLocale">
+          <label for="locale${$index}" textcontent.bind="locale.label"></label>
+      </li>
+  </ul>
+  <div class="card">
+    <div class="card-header text-white bg-primary" t="[prepend]profile"></div>
+    <div class="card-body">
+      <form role="form">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]firstName"></label>
+          <div class="col-md-9">
+            <input type="text" placeholder="first name" class="form-control" value.bind="applicant.name">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]lastName"></label>
+          <div class="col-md-9">
+            <input type="text" placeholder="last name" class="form-control" value.bind="applicant.familyName">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]email"></label>
+          <div class="col-md-9">
+            <input type="text" placeholder="email" class="form-control" value.bind="applicant.eMailAdress">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]address"></label>
+          <div class="col-md-9">
+            <input type="text" placeholder="Address" class="form-control" value.bind="applicant.address">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]country"></label>
+          <div class="col-md-9">
+            <input type="text" placeholder="Country" class="form-control" value.bind="applicant.countryOfOrigin">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]age"></label>
+          <div class="col-md-9">
+            <input type="number" placeholder="Age" class="form-control" value.bind="applicant.age">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" t="[prepend]hired"></label>
+          <div class="col-md-9">
+            <input type="checkbox" placeholder="Hired?" class="form-control" value.bind="applicant.hired">
+          </div>
+        </div>
+      </form>
+      <div>
+        <button class="btn btn-danger float-right" click.delegate="delete(applicant)" disabled.bind="!canSave" t="[prepend]delete"></button>
       </div>
-      <div class="card-body">
-        <form role="form">
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">First Name</label>
-            <div class="col-md-9">
-              <input type="text" placeholder="first name" class="form-control" value.bind="applicant.name">
-            </div>
-          </div>
-  
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Last Name</label>
-            <div class="col-md-9">
-              <input type="text" placeholder="last name" class="form-control" value.bind="applicant.familyName">
-            </div>
-          </div>
-  
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Email</label>
-            <div class="col-md-9">
-              <input type="text" placeholder="email" class="form-control" value.bind="applicant.eMailAdress">
-            </div>
-          </div>
-  
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Address</label>
-            <div class="col-md-9">
-              <input type="text" placeholder="Address" class="form-control" value.bind="applicant.address">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Country</label>
-            <div class="col-md-9">
-              <input type="text" placeholder="Country" class="form-control" value.bind="applicant.countryOfOrigin">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Age</label>
-            <div class="col-md-9">
-              <input type="number" placeholder="Age" class="form-control" value.bind="applicant.age">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Hired</label>
-            <div class="col-md-9">
-              <input type="checkbox" placeholder="Hired?" class="form-control" value.bind="applicant.hired">
-            </div>
-          </div>
-        </form>
-        <div>
-          <button class="btn btn-danger float-right" click.delegate="delete(applicant)" disabled.bind="!canSave">Delete</button>
-        </div>
-        <div>
-          <button class="btn btn-primary float-right" click.delegate="update(applicant)" disabled.bind="!canSave">Update</button>
-        </div>
+      <div>
+        <button class="btn btn-primary float-right" click.delegate="update(applicant)" disabled.bind="!canSave" t="[prepend]update"></button>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
